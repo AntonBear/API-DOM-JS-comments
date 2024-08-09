@@ -1,9 +1,7 @@
-export const addFormElement = ({
-  renderComments,
-  comments,
-  user,
-  BASE_URL,
-}) => {
+import { BASE_URL } from './const.js'
+import { renderComments } from './renderComments.js'
+
+export const addFormElement = ({ comments, user }) => {
   const appElement = document.querySelector('.appElement')
   const newFormHTML = document.createElement('div')
 
