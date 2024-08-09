@@ -1,13 +1,6 @@
 import { authorization } from './authorization.js'
 
-export const notion = ({
-  user,
-  addFormElement,
-  renderComments,
-  BASE_URL,
-  comments,
-  registration,
-}) => {
+export const notion = ({ user, comments }) => {
   const notionElement = document.createElement('div')
   notionElement.classList.add('registration-notion')
   notionElement.innerHTML = `
@@ -19,13 +12,6 @@ export const notion = ({
 
   notionElement.addEventListener('click', function () {
     notionElement.remove()
-    authorization({
-      registration,
-      user,
-      addFormElement,
-      renderComments,
-      BASE_URL,
-      comments,
-    })
+    authorization({ user, comments })
   })
 }

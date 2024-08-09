@@ -1,5 +1,6 @@
 import { BASE_URL } from './const.js'
 import { renderComments } from './renderComments.js'
+import { showLoader, hideLoader } from './utils.js'
 
 export const addFormElement = ({ comments, user }) => {
   const appElement = document.querySelector('.appElement')
@@ -64,7 +65,7 @@ export const addFormElement = ({ comments, user }) => {
         document.querySelector('.add-form')
       )
 
-    // showLoader({ loader })
+    showLoader()
     fetch(BASE_URL, {
       method: 'POST',
       body: JSON.stringify({ text: text }),
@@ -119,7 +120,7 @@ export const addFormElement = ({ comments, user }) => {
         document.querySelector('.add-form').style.display = 'flex'
       })
       .finally(() => {
-        // hideLoader({ loader })
+        hideLoader()
       })
   })
 }

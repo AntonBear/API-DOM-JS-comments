@@ -1,4 +1,6 @@
-export const renderComments = ({ comments, BASE_URL, user }) => {
+import { BASE_URL } from './const.js'
+
+export const renderComments = ({ comments, user }) => {
   const appElement = document.querySelector('.appElement')
   const oldComments = document.querySelector('.comments')
 

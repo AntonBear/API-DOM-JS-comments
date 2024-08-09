@@ -1,13 +1,10 @@
 import { registration } from './registration.js'
 import { LOGIN_URL } from './const.js'
+import { BASE_URL } from './const.js'
+import { addFormElement } from './addFormElement.js'
+import { renderComments } from './renderComments.js'
 
-export const authorization = ({
-  user,
-  addFormElement,
-  renderComments,
-  BASE_URL,
-  comments,
-}) => {
+export const authorization = ({ user, comments }) => {
   const oldAuthorization = document.getElementById('authorization')
   const appElement = document.querySelector('.appElement')
   const authorization = document.createElement('div')
