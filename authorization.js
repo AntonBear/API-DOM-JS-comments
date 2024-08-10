@@ -47,44 +47,93 @@ export const authorization = ({ user, comments }) => {
       return
     }
 
-    fetch(LOGIN_URL, {
-      method: 'POST',
-      body: JSON.stringify({ login: login, password: password }),
-    })
-      .then((res) => {
-        if (res.status === '400') {
-          throw new Error('Bad Request')
+    const handleLogin = async (login, password) => {
+      try {
+        const response = await fetch(LOGIN_URL, {
+          method: 'POST',
+          body: JSON.stringify({ login, password }),
+        })
+
+        if (!response.ok) {
+          if (response.status === 400) {
+            throw new Error('Неверный логин или пароль')
+          } else {
+            throw new Error(`Ошибка сервера: ${response.status}`)
+          }
         }
-        return res.json()
-      })
-      .then((data) => {
+
+        const data = await response.json()
         user = data.user
-      })
-      .then(() => {
-        console.log(`authorization: 1Bearer ${user.token}`)
-        return fetch(BASE_URL, {
+
+        // Второй запрос (получение комментариев)
+        const commentsResponse = await fetch(BASE_URL, {
           method: 'GET',
           headers: {
+            // Используем обратные кавычки:
             Authorization: `Bearer ${user.token}`,
           },
         })
-      })
-      .then((res) => {
-        return res.json()
-      })
-      .then((res) => {
-        comments = res.comments
-      })
-      .then(() => {
+
+        if (!commentsResponse.ok) {
+          throw new Error(
+            `Ошибка получения комментариев: ${commentsResponse.status}`
+          )
+        }
+
+        const commentsData = await commentsResponse.json()
+        comments = commentsData.comments
+
         renderComments({ comments, user })
         addFormElement({ comments, user })
         authorization.remove()
-      })
-      .catch((error) => {
-        if (error.message === 'Bad Request') {
+      } catch (error) {
+        if (error.message === 'Неверный логин или пароль') {
           alert('Неверный логин или пароль')
+        } else {
+          console.error('Произошла ошибка при авторизации:', error)
         }
-      })
+      }
+    }
+    handleLogin(login, password)
+
+    // fetch(LOGIN_URL, {
+    //   method: 'POST',
+    //   body: JSON.stringify({ login: login, password: password }),
+    // })
+    //   .then((res) => {
+    //     if (res.status === '400') {
+    //       throw new Error('Bad Request')
+    //     }
+    //     return res.json()
+    //   })
+    //   .then((data) => {
+    //     user = data.user
+    //   })
+    //   .then(() => {
+    //     console.log(`authorization: 1Bearer ${user.token}`)
+    //     return fetch(BASE_URL, {
+    //       method: 'GET',
+    //       headers: {
+    //         Authorization: `Bearer ${user.token}`,
+    //       },
+    //     })
+    //   })
+    //   .then((res) => {
+    //     return res.json()
+    //   })
+    //   .then((res) => {
+    //     comments = res.comments
+    //   })
+    //   .then(() => {
+    //     renderComments({ comments, user })
+    //     addFormElement({ comments, user })
+    //     authorization.remove()
+    //   })
+    //   .catch((error) => {
+    //     if (error.message === 'Bad Request') {
+    //       alert('Неверный логин или пароль')
+    //     }
+    //   })
   })
 
   const regSpan = document.getElementById('registration-span')

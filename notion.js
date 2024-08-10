@@ -1,6 +1,6 @@
 import { authorization } from './authorization.js'
 
-export const notion = ({ user, comments }) => {
+export const showAuthorizationNotice= ({ user, comments }) => {
   const notionElement = document.createElement('div')
   notionElement.classList.add('registration-notion')
   notionElement.innerHTML = `

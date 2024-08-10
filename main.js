@@ -2,6 +2,7 @@
 import { showLoader, hideLoader } from './utils.js'
 import { fetchAndRenderData } from './fetchAndRenderData.js'
 
+
 async function initApp() {
   try {
     showLoader()

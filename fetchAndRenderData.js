@@ -1,7 +1,7 @@
 import { fetchComments } from './fetchComments.js'
 import { addFormElement } from './addFormElement.js'
 import { user } from './user.js'
-import { notion } from './notion.js'
+import { showAuthorizationNotice } from './notion.js'
 import { renderComments } from './renderComments.js'
 
 export async function fetchAndRenderData() {
@@ -14,7 +14,7 @@ export async function fetchAndRenderData() {
     if (Object.keys(user).length !== 0) {
       addFormElement({ user, comments })
     } else {
-      notion({ user, comments })
+      showAuthorizationNotice({ user, comments })
     }
   }
 }

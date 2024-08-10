@@ -3,7 +3,7 @@ import { renderComments } from './renderComments.js'
 import { showLoader, hideLoader } from './utils.js'
 // import { postComment } from './config.js'
 
-export const addFormElement = ({ comments, user }) => {
+export const addFormElement = ({ user, comments }) => {
   const appElement = document.querySelector('.appElement')
   const newFormHTML = document.createElement('div')
 
@@ -32,7 +32,6 @@ export const addFormElement = ({ comments, user }) => {
 
   const addFormText = document.querySelector('.add-form-text')
   const addFormButton = document.getElementById('button')
-  const inputName = document.getElementById('input')
   const addForm = document.querySelector('.add-form')
   addFormButton.disabled = true
 
@@ -67,6 +66,7 @@ export const addFormElement = ({ comments, user }) => {
       )
 
     showLoader()
+
     fetch(BASE_URL, {
       method: 'POST',
       body: JSON.stringify({ text: text }),
