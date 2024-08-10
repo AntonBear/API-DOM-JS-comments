@@ -1,11 +1,11 @@
 import { authorization } from './authorization.js'
-import { BASE_USER_URL } from './const.js'
 import { addFormElement } from './addFormElement.js'
-import { renderComments } from './renderComments.js'
+import { fetchRegUser, fetchCommentsAuth } from './config.js'
+import { listWrapper } from './ListWrapper.js'
 
-export const registration = ({ user, comments }) => {
-  const oldRegistration = document.getElementById('registration')
+export const registration = () => {
   const appElement = document.querySelector('.appElement')
+  const commentsEl = document.querySelector('.comments')
   const registration = document.createElement('div')
   registration.id = 'registration'
 
@@ -43,15 +43,9 @@ export const registration = ({ user, comments }) => {
   </div>
   `
 
-  if (oldRegistration) {
-    appElement.replaceChild(registration, oldRegistration)
-  }
-
   appElement.appendChild(registration)
 
   const buttonRegistrationEl = document.getElementById('button-registration')
-  const inputLoginEl = document.getElementById('input-login-registration')
-  const inputPasswordEl = document.getElementById('input-password-registration')
 
   buttonRegistrationEl.addEventListener('click', function () {
     const name = document
@@ -67,83 +61,25 @@ export const registration = ({ user, comments }) => {
       .value.replaceAll('<', '&lt')
       .replaceAll('>', '&gt')
 
-    if (name.length > 20) {
-      alert('Имя слишком длинное больше 20 символов')
-      return
+    async function regUser(name, login, password) {
+      try {
+      const user = await fetchRegUser(name, login, password)
+      const comments = await fetchCommentsAuth(user)
+      commentsEl.remove()
+      listWrapper({ comments, user })
+      addFormElement({ user })
+      registration.remove()
+      } catch (error) {
+        console.log(error)
+        console.log(error.message)
+      }
     }
-
-    if (login === '' || password === '' || name === '') {
-      alert('Логин имя пароль должны содержать не менее трех символов')
-      return
-    }
-    if (login === password) {
-      alert('Логин и пароль не должны совпадать')
-      return
-    }
-
-    fetch(BASE_USER_URL, {
-      method: 'POST',
-      body: JSON.stringify({ name: name, login: login, password: password }),
-    })
-      .then((res) => {
-        console.log(res.ok)
-        if (!res.ok) {
-          return res.json().then((dataError) => {
-            console.log(dataError.error)
-            if (dataError.error === 'name должен содержать хотя бы 3 символа')
-              throw new Error('name должен содержать хотя бы 3 символа')
-
-            if (dataError.error === 'login должен содержать хотя бы 3 символа')
-              throw new Error('login должен содержать хотя бы 3 символа')
-
-            if (
-              dataError.error === 'password должен содержать хотя бы 3 символа'
-            )
-              throw new Error('password должен содержать хотя бы 3 символа')
-            if (
-              dataError.error === 'Пользователь с таким логином уже существует'
-            ) {
-              throw new Error('Пользователь с таким логином уже существует')
-            }
-          })
-        }
-
-        return res.json()
-      })
-      .then((data) => {
-        console.log(data)
-        return user = data.user
-      })
-      .then((user) => {
-        renderComments({ comments, user })
-        addFormElement({ comments, user })
-        console.log(`registration: ${user.token}`)
-        registration.style.display = 'none'
-        // registration.remove()
-        // inputLoginEl.value = ''
-        // inputPasswordEl.value = ''
-      })
-      .catch((error) => {
-        if (error.message === 'Пользователь с таким логином уже существует') {
-          alert('Пользователь с таким логином уже существует')
-        }
-        if (error.message === 'login должен содержать хотя бы 3 символа') {
-          alert('login должен содержать хотя бы 3 символа')
-        }
-        if (error.message === 'name должен содержать хотя бы 3 символа') {
-          alert('Имя должно содержать хотя бы 3 символа')
-        }
-        if (error.message === 'password должен содержать хотя бы 3 символа') {
-          alert('password должен содержать хотя бы 3 символа')
-        }
-      })
-
-      .finally(() => {})
+    regUser(name, login, password)
   })
 
   const autoSpan = document.getElementById('authorization-span')
   autoSpan.addEventListener('click', function () {
     registration.remove()
-    authorization({ user, comments })
+    authorization()
   })
 }

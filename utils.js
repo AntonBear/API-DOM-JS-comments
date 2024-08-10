@@ -1,3 +1,4 @@
+
 export function generateLoader() {
   const appElement = document.querySelector('.appElement')
   const loader = document.createElement('img')
@@ -19,5 +20,7 @@ export function showLoader() {
 
 export function hideLoader() {
   const loader = document.getElementById('loader')
-  loader.style.display = 'none'
+  loader.remove()
 }
+
+

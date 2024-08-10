@@ -1,14 +1,22 @@
 'use strict'
 import { showLoader, hideLoader } from './utils.js'
-import { fetchAndRenderData } from './fetchAndRenderData.js'
-
+import { listWrapper } from './ListWrapper.js'
+import { fetchComments } from './config.js'
+import { showAuthorizationNotice } from './notion.js'
 
 async function initApp() {
   try {
     showLoader()
-    await fetchAndRenderData()
+    const comments = await fetchComments()
+    const user = {}
+    listWrapper({ user, comments })
+    if (Object.keys(user).length !== 0) {
+      addFormElement({ user })
+    } else {
+      showAuthorizationNotice()
+    }
   } catch (error) {
-    console.error('Критическая ошибка приложения:', error)
+    console.error('Ошибка приложения:', error)
   } finally {
     hideLoader()
   }

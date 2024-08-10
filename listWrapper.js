@@ -1,17 +1,16 @@
-export const unorderedListWrapper = ({ user, comments }) => {
+import { BASE_URL } from './const.js'
+import { renderComments } from './renderComments.js'
+
+export const listWrapper = ({ comments, user }) => {
   const appElement = document.querySelector('.appElement')
   const unorderedListWrapper = document.createElement('ul')
   unorderedListWrapper.classList.add('comments')
   unorderedListWrapper.id = 'comments'
-
-  unorderedListWrapper.innerHTML = `
-<ul id="comments" class="comments">${commentsHTML}</ul>
-`
-
+  const newComments = renderComments({ comments })
+  unorderedListWrapper.innerHTML = newComments
   appElement.appendChild(unorderedListWrapper)
-
+  
   unorderedListWrapper.addEventListener('click', (event) => {
-    // Цитирование по нажатию на комментарий
     if (Object.keys(user).length === 0) {
       alert('Необходимо авторизоваться или пройти регистрацию')
       return
@@ -29,9 +28,7 @@ export const unorderedListWrapper = ({ user, comments }) => {
       header.textContent
     }`
   })
-
   unorderedListWrapper.addEventListener('click', async (event) => {
-    // Изменение инонки лайка по POST запросу
     if (JSON.stringify(user) === '{}') {
       alert('Необходимо авторизоваться или пройти регистрацию')
       return
@@ -39,7 +36,6 @@ export const unorderedListWrapper = ({ user, comments }) => {
 
     if (event.target.classList.contains('like-button')) {
       try {
-        // Используем async/await для более удобной работы с fetch
         const response = await fetch(
           `${BASE_URL}/${event.target.dataset.likeIndex}/toggle-like`,
           {
@@ -57,10 +53,7 @@ export const unorderedListWrapper = ({ user, comments }) => {
             throw new Error(`Ошибка сервера: ${response.status}`)
           }
         }
-
         const resData = await response.json()
-
-        // Обновляем интерфейс
         const counter = document.querySelector(
           `[data-counter-index="${event.target.dataset.likeIndex}"]`
         )
@@ -71,8 +64,6 @@ export const unorderedListWrapper = ({ user, comments }) => {
           alert('Необходимо авторизироваться')
         } else {
           console.error('Произошла ошибка:', error)
-          // Дополнительная обработка ошибок,
-          // например, показ сообщения пользователю
         }
       }
     }
