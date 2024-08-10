@@ -58,9 +58,14 @@ export const renderComments = ({ comments, user }) => {
 
   appElement.prepend(newComments)
 
+
+
+
+
+
   const listComments = document.getElementById('comments')
   listComments.addEventListener('click', function (event) {
-    if (JSON.stringify(user) === '{}') {
+    if (Object.keys(user).length === 0) {
       return
     }
     if (!event.target.classList.contains('comment-text')) {
@@ -74,6 +79,14 @@ export const renderComments = ({ comments, user }) => {
       .replace(/\s/g, ' ')
       .trim()}\n${header.textContent}`
   })
+
+
+
+
+
+
+
+
 
   listComments.addEventListener('click', function (event) {
     if (JSON.stringify(user) === '{}') {

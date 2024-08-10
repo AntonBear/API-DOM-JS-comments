@@ -1,11 +1,9 @@
 import { registration } from './registration.js'
-import { LOGIN_URL } from './const.js'
-import { BASE_URL } from './const.js'
+import { LOGIN_URL, BASE_URL } from './const.js'
 import { addFormElement } from './addFormElement.js'
 import { renderComments } from './renderComments.js'
 
 export const authorization = ({ user, comments }) => {
-  const oldAuthorization = document.getElementById('authorization')
   const appElement = document.querySelector('.appElement')
   const authorization = document.createElement('div')
   authorization.id = 'authorization'
@@ -17,13 +15,11 @@ export const authorization = ({ user, comments }) => {
     type="text"
     class="add-form-name-authorization"
     placeholder="Введите логин"
-    value=""
   />
   <input
   id="input-password-authorization"
   type="password"
   class="add-form-password-authorization"
-  value=""
   placeholder="Введите пароль"
 />
   <div class="add-form-row_authorization">
@@ -33,31 +29,24 @@ export const authorization = ({ user, comments }) => {
 </div>
 `
 
-  if (oldAuthorization) {
-    appElement.replaceChild(authorization, oldAuthorization)
-  }
-
   appElement.appendChild(authorization)
 
   const buttonAuthorizationEl = document.getElementById('button-authorization')
-  const inputLoginEl = document.getElementById('input-login-authorization')
-  const inputPasswordEl = document.getElementById(
-    'input-password-authorization'
-  )
-
   buttonAuthorizationEl.addEventListener('click', function () {
-    const login = document
-      .getElementById('input-login-authorization')
-      .value.replaceAll('<', '&lt')
+    const loginInput = document.getElementById('input-login-authorization')
+    const passwordInput = document.getElementById(
+      'input-password-authorization'
+    )
+    const login = loginInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
+    const password = passwordInput.value
+      .replaceAll('<', '&lt')
       .replaceAll('>', '&gt')
-    const password = document
-      .getElementById('input-password-authorization')
-      .value.replaceAll('<', '&lt')
-      .replaceAll('>', '&gt')
-    if (login === '') {
-      alert('Введите пожалуйста хоть что-нибудь')
+    if (!login) {
+      alert('Пожалуйста, введите логин')
+      loginInput.focus()
       return
     }
+
     fetch(LOGIN_URL, {
       method: 'POST',
       body: JSON.stringify({ login: login, password: password }),
@@ -69,7 +58,6 @@ export const authorization = ({ user, comments }) => {
         return res.json()
       })
       .then((data) => {
-        console.log(data)
         user = data.user
       })
       .then(() => {
@@ -88,9 +76,9 @@ export const authorization = ({ user, comments }) => {
         comments = res.comments
       })
       .then(() => {
-        renderComments({ comments, BASE_URL, user })
-        addFormElement({ renderComments, comments, user, BASE_URL })
-        authorization.style.display = 'none'
+        renderComments({ comments, user })
+        addFormElement({ comments, user })
+        authorization.remove()
       })
       .catch((error) => {
         if (error.message === 'Bad Request') {
@@ -102,12 +90,6 @@ export const authorization = ({ user, comments }) => {
   const regSpan = document.getElementById('registration-span')
   regSpan.addEventListener('click', function () {
     authorization.remove()
-    registration({
-      user,
-      addFormElement,
-      renderComments,
-      BASE_URL,
-      comments,
-    })
+    registration({ user, comments })
   })
 }

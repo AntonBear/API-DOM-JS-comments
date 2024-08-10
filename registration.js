@@ -1,13 +1,9 @@
 import { authorization } from './authorization.js'
 import { BASE_USER_URL } from './const.js'
+import { addFormElement } from './addFormElement.js'
+import { renderComments } from './renderComments.js'
 
-export const registration = ({
-  user,
-  addFormElement,
-  renderComments,
-  BASE_URL,
-  comments,
-}) => {
+export const registration = ({ user, comments }) => {
   const oldRegistration = document.getElementById('registration')
   const appElement = document.querySelector('.appElement')
   const registration = document.createElement('div')
@@ -116,15 +112,16 @@ export const registration = ({
       })
       .then((data) => {
         console.log(data)
-        user = data.user
+        return user = data.user
       })
-      .then(() => {
-        renderComments({ comments, BASE_URL, user })
-        addFormElement({ renderComments, comments, user, BASE_URL })
+      .then((user) => {
+        renderComments({ comments, user })
+        addFormElement({ comments, user })
         console.log(`registration: ${user.token}`)
         registration.style.display = 'none'
-        inputLoginEl.value = ''
-        inputPasswordEl = ''
+        // registration.remove()
+        // inputLoginEl.value = ''
+        // inputPasswordEl.value = ''
       })
       .catch((error) => {
         if (error.message === 'Пользователь с таким логином уже существует') {
@@ -147,12 +144,6 @@ export const registration = ({
   const autoSpan = document.getElementById('authorization-span')
   autoSpan.addEventListener('click', function () {
     registration.remove()
-    authorization({
-      user,
-      addFormElement,
-      renderComments,
-      BASE_URL,
-      comments,
-    })
+    authorization({ user, comments })
   })
 }

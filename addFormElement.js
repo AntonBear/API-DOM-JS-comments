@@ -1,6 +1,7 @@
 import { BASE_URL } from './const.js'
 import { renderComments } from './renderComments.js'
 import { showLoader, hideLoader } from './utils.js'
+// import { postComment } from './config.js'
 
 export const addFormElement = ({ comments, user }) => {
   const appElement = document.querySelector('.appElement')
@@ -97,8 +98,7 @@ export const addFormElement = ({ comments, user }) => {
       .then((res) => {
         comments = res.comments
         console.log(`addFormElement: 2Bearer ${user.token}`)
-        renderComments({ comments, BASE_URL, user })
-        console.log(comments)
+        renderComments({ comments, user })
       })
       .then(() => {
         document.querySelector('.add-form').style.display = 'flex'
