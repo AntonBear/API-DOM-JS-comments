@@ -28,7 +28,6 @@ export async function fetchAuthorizationUser(login, password) {
   }
 }
 
-
 export async function fetchRegUser(name, login, password) {
   try {
     const response = await fetch(BASE_USER_URL, {
@@ -74,20 +73,57 @@ export async function fetchRegUser(name, login, password) {
   }
 }
 
-export async function fetchCommentsAuth(user) {
-  // Второй запрос (получение комментариев)
-  const commentsResponse = await fetch(BASE_URL, {
-    method: 'GET',
-    headers: {
-      // Используем обратные кавычки:
-      Authorization: `Bearer ${user.token}`,
-    },
-  })
-  if (!commentsResponse.ok) {
-    throw new Error(`Ошибка получения комментариев: ${commentsResponse.status}`)
+export async function fetchPostCommentsAuth(user, text) {
+  try {
+    const commentsResponse = await fetch(BASE_URL, {
+      method: 'POST',
+      body: JSON.stringify({ text: text }),
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    })
+    if (commentsResponse.status === 500) {
+      throw Error('Сервер сломался')
+    }
+    if (commentsResponse.status === 400) {
+      throw Error('Плохой запрос')
+    }
+    const commentData = await commentsResponse.json()
+    return commentData
+  } catch (error) {
+    if (error.message === 'Сервер сломался') {
+      alert(
+        'Сервер сломался (плановое поведение для отработки .catch) попробуйте отправить еще раз'
+      )
+    }
+    if (error.message === 'Failed to fetch') {
+      alert('У вас отсутствует интернет соединение')
+    }
+    if (error.message === 'Плохой запрос') {
+      alert('Текст короче 3 символов')
+    }
   }
-  const commentsData = await commentsResponse.json()
-  return commentsData.comments
+}
+
+export async function fetchCommentsAuth(user) {
+  try {
+    const commentsResponse = await fetch(BASE_URL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    })
+    if (!commentsResponse.ok) {
+      throw new Error(
+        `Ошибка получения комментариев для авторизованного пользователя: ${commentsResponse.status}`
+      )
+    }
+    const commentsData = await commentsResponse.json()
+    return commentsData.comments
+  } catch (error) {
+    console.error(`fetchCommentsAuth: ${error.message}`)
+    throw error
+  }
 }
 
 export async function fetchComments() {
@@ -100,6 +136,6 @@ export async function fetchComments() {
     return responseData.comments
   } catch (error) {
     console.error(`fetchComments: ${error.message}`)
-    throw error // Пробрасываем ошибку дальше, чтобы обработать её на уровне приложения
+    throw error
   }
 }

@@ -1,12 +1,11 @@
 'use strict'
 import { showLoader, hideLoader } from './utils.js'
 import { listWrapper } from './ListWrapper.js'
-import { fetchComments } from './config.js'
+import { fetchComments } from './fetch.js'
 import { showAuthorizationNotice } from './notion.js'
 
 async function initApp() {
   try {
-    showLoader()
     const comments = await fetchComments()
     const user = {}
     listWrapper({ user, comments })
@@ -18,7 +17,6 @@ async function initApp() {
   } catch (error) {
     console.error('Ошибка приложения:', error)
   } finally {
-    hideLoader()
   }
 }
 

@@ -9,7 +9,7 @@ export const listWrapper = ({ comments, user }) => {
   const newComments = renderComments({ comments })
   unorderedListWrapper.innerHTML = newComments
   appElement.appendChild(unorderedListWrapper)
-  
+
   unorderedListWrapper.addEventListener('click', (event) => {
     if (Object.keys(user).length === 0) {
       alert('Необходимо авторизоваться или пройти регистрацию')
@@ -69,3 +69,4 @@ export const listWrapper = ({ comments, user }) => {
     }
   })
 }
+

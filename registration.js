@@ -1,6 +1,6 @@
 import { authorization } from './authorization.js'
-import { addFormElement } from './addFormElement.js'
-import { fetchRegUser, fetchCommentsAuth } from './config.js'
+import { addFormElement } from './addFormElement/addCommentForm.js'
+import { fetchRegUser, fetchCommentsAuth } from './fetch.js'
 import { listWrapper } from './ListWrapper.js'
 
 export const registration = () => {
@@ -63,12 +63,12 @@ export const registration = () => {
 
     async function regUser(name, login, password) {
       try {
-      const user = await fetchRegUser(name, login, password)
-      const comments = await fetchCommentsAuth(user)
-      commentsEl.remove()
-      listWrapper({ comments, user })
-      addFormElement({ user })
-      registration.remove()
+        const user = await fetchRegUser(name, login, password)
+        const comments = await fetchCommentsAuth(user)
+        commentsEl.remove()
+        listWrapper({ comments, user })
+        addFormElement({ user })
+        registration.remove()
       } catch (error) {
         console.log(error)
         console.log(error.message)

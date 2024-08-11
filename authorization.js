@@ -1,6 +1,6 @@
 import { registration } from './registration.js'
-import { addFormElement } from './addFormElement.js'
-import { fetchAuthorizationUser, fetchCommentsAuth } from './config.js'
+import { addFormElement } from './addFormElement/addCommentForm.js'
+import { fetchAuthorizationUser, fetchCommentsAuth } from './fetch.js'
 import { listWrapper } from './ListWrapper.js'
 
 export const authorization = () => {
@@ -48,7 +48,6 @@ export const authorization = () => {
 
     async function loginUser(login, password) {
       const user = await fetchAuthorizationUser(login, password)
-      console.log(user)
       const comments = await fetchCommentsAuth(user)
       commentsEl.remove()
       listWrapper({ comments, user })
@@ -59,6 +58,7 @@ export const authorization = () => {
       } else {
         console.log('Не удалось авторизоваться')
       }
+      buttonAuthorizationEl.disabled = false
     }
     loginUser(login, password)
   })
