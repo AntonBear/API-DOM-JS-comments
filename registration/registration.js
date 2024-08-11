@@ -3,6 +3,19 @@ import { addFormElement } from '../addFormElement/addCommentForm.js'
 import { fetchRegUser, fetchCommentsAuth } from '../fetch.js'
 import { listWrapper } from '../ListWrapper.js'
 
+async function regUser(name, login, password) {
+  try {
+    const user = await fetchRegUser(name, login, password)
+    const comments = await fetchCommentsAuth(user)
+    commentsEl.remove()
+    listWrapper({ comments, user })
+    addFormElement({ user })
+    registration.remove()
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export const registration = () => {
   const appElement = document.querySelector('.appElement')
   const commentsEl = document.querySelector('.comments')
@@ -42,7 +55,6 @@ export const registration = () => {
     
   </div>
   `
-
   appElement.appendChild(registration)
 
   const buttonRegistrationEl = document.getElementById('button-registration')
@@ -61,19 +73,6 @@ export const registration = () => {
       .value.replaceAll('<', '&lt')
       .replaceAll('>', '&gt')
 
-    async function regUser(name, login, password) {
-      try {
-        const user = await fetchRegUser(name, login, password)
-        const comments = await fetchCommentsAuth(user)
-        commentsEl.remove()
-        listWrapper({ comments, user })
-        addFormElement({ user })
-        registration.remove()
-      } catch (error) {
-        console.log(error)
-        console.log(error.message)
-      }
-    }
     regUser(name, login, password)
   })
 

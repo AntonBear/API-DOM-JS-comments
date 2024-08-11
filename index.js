@@ -15,8 +15,7 @@ async function initApp() {
     }
   } catch (error) {
     console.error('Ошибка приложения:', error)
-  } finally {
-  }
+  } 
 }
 
 initApp()

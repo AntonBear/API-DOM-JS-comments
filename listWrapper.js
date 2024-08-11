@@ -6,8 +6,7 @@ export const listWrapper = ({ comments, user }) => {
   const unorderedListWrapper = document.createElement('ul')
   unorderedListWrapper.classList.add('comments')
   unorderedListWrapper.id = 'comments'
-  const newComments = renderComments({ comments })
-  unorderedListWrapper.innerHTML = newComments
+  unorderedListWrapper.innerHTML = renderComments({ comments })
   appElement.appendChild(unorderedListWrapper)
 
   unorderedListWrapper.addEventListener('click', (event) => {
