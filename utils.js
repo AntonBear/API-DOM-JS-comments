@@ -3,7 +3,7 @@ export function generateLoader() {
   const addCommentForm = document.querySelector('.add-form')
   const loader = document.createElement('img')
   loader.id = 'loader'
-  loader.src = './13.gif'
+  loader.src = './images/13.gif'
   loader.style.display = 'none'
   addCommentForm.parentNode.insertBefore(loader, addCommentForm)
   return loader

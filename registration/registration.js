@@ -1,7 +1,7 @@
-import { authorization } from './authorization.js'
-import { addFormElement } from './addFormElement/addCommentForm.js'
-import { fetchRegUser, fetchCommentsAuth } from './fetch.js'
-import { listWrapper } from './ListWrapper.js'
+import { authorization } from '../authorization/authorization.js'
+import { addFormElement } from '../addFormElement/addCommentForm.js'
+import { fetchRegUser, fetchCommentsAuth } from '../fetch.js'
+import { listWrapper } from '../ListWrapper.js'
 
 export const registration = () => {
   const appElement = document.querySelector('.appElement')

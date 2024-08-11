@@ -11,11 +11,6 @@ export const listWrapper = ({ comments, user }) => {
   appElement.appendChild(unorderedListWrapper)
 
   unorderedListWrapper.addEventListener('click', (event) => {
-    if (Object.keys(user).length === 0) {
-      alert('Необходимо авторизоваться или пройти регистрацию')
-      return
-    }
-
     if (!event.target.classList.contains('comment-text')) {
       return
     }
@@ -69,4 +64,3 @@ export const listWrapper = ({ comments, user }) => {
     }
   })
 }
-

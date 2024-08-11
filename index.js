@@ -1,8 +1,7 @@
 'use strict'
-import { showLoader, hideLoader } from './utils.js'
 import { listWrapper } from './ListWrapper.js'
 import { fetchComments } from './fetch.js'
-import { showAuthorizationNotice } from './notion.js'
+import { showAuthorizationNotice } from './notion/notion.js'
 
 async function initApp() {
   try {
