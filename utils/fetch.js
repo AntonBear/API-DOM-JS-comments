@@ -1,6 +1,7 @@
 import { LOGIN_URL } from './const.js'
 import { BASE_URL } from './const.js'
 import { BASE_USER_URL } from './const.js'
+import _ from 'lodash'
 
 export async function fetchAuthorizationUser(login, password) {
   try {
@@ -23,7 +24,11 @@ export async function fetchRegUser(name, login, password) {
   try {
     const response = await fetch(BASE_USER_URL, {
       method: 'POST',
-      body: JSON.stringify({ name: name, login: login, password: password }),
+      body: JSON.stringify({
+        name: _.capitalize(name),
+        login: login,
+        password: password,
+      }),
     })
     const regUser = await response.json()
     return regUser.user

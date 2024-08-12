@@ -1,0 +1,25 @@
+{
+    "name": "api-comments",
+    "version": "1.0.0",
+    "description": "Этот проект представляет собой веб-приложение, реализующее доску комментариев с использованием API. Пользователи могут оставлять комментарии, просматривать их и удалять свои сообщения. Проект использует современные технологии для работы с данными и предоставляет удобный интерфейс.",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack --mode development --watch",
+        "lint:js": "eslint './*.js'",
+        "format": "prettier --write ."
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "date-fns": "^3.6.0",
+        "lodash": "^4.17.21"
+    },
+    "devDependencies": {
+        "eslint": "^9.9.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "prettier": "^3.3.3",
+        "webpack": "^5.93.0",
+        "webpack-cli": "^5.1.4"
+    }
+}

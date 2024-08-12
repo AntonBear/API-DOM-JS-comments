@@ -1,8 +1,11 @@
-import { formatCommentDate } from '../utils/utils.js'
+// import { formatCommentDate } from '../utils/utils.js'
+import { format } from 'date-fns'
+
 export const renderComments = ({ comments }) => {
   const commentsHTML = comments
     .map((comment) => {
-      const formattedDate = formatCommentDate(comment.date)
+      let formattedDate = format(new Date(comment.date), 'yyyy-MM-dd HH:mm:ss')
+      // const formattedDate = formatCommentDate(comment.date)
       return `<li class="comment" data-comment-idex="${comment.id}">
             <div class="comment-header">
               <div data-comment-header-index='${comment.id}'>${
