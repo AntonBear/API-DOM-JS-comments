@@ -1,42 +1,37 @@
 import { addFormElement } from '../addFormElement/addCommentForm.js'
-import { fetchAuthorizationUser, fetchCommentsAuth } from '../fetch.js'
+import { fetchRegUser, fetchCommentsAuth } from '../fetch.js'
 import { listWrapper } from '../ListWrapper.js'
 
-export async function loginUser(login, password) {
+export async function regUser(name, login, password) {
   try {
-    const buttonAuthorizationEl = document.getElementById(
-      'button-authorization'
-    )
-    const authorization = document.getElementById('authorization')
-    const user = await fetchAuthorizationUser(login, password)
-    const comments = await fetchCommentsAuth(user)
     const commentsEl = document.querySelector('.comments')
+    const user = await fetchRegUser(name, login, password)
+    const comments = await fetchCommentsAuth(user)
     commentsEl.remove()
     listWrapper({ comments, user })
     addFormElement({ user })
-    authorization.remove()
-    buttonAuthorizationEl.disabled = false
-  } catch (e) {
-    console.error(e)
+    registration.remove()
+  } catch (error) {
+    console.error(error)
   }
 }
 
 export function getSafeLogin() {
-  const loginInput = document.getElementById('input-login-authorization')
+  const loginInput = document.getElementById('input-login-registration')
   if (loginInput) {
     return loginInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
   } else {
-    console.error('Элемент input-login-authorization не найден!')
+    console.error('Элемент input-login-registration не найден!')
     return '' // Или бросить исключение: throw new Error(...)
   }
 }
 
 export function getSafePassword() {
-  const passwordInput = document.getElementById('input-password-authorization')
+  const passwordInput = document.getElementById('input-password-registration')
   if (passwordInput) {
     return passwordInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
   } else {
-    console.error('Элемент input-password-authorization не найден!')
+    console.error('Элемент input-password-registration не найден!')
     return '' // Или бросаем исключение: throw new Error(...)
   }
 }

@@ -46,3 +46,4 @@ export function hideTextComment() {
   const TextCommentLoader = document.getElementById('textComment')
   TextCommentLoader.remove()
 }
+
