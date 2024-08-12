@@ -1,5 +1,5 @@
 import { BASE_URL } from '../utils/const.js'
-import { renderComments } from './renderComments.js'
+import { renderComments } from '../comment/viewComments.js'
 import { viewWrapper } from './viewWrapper.js'
 
 export const listWrapper = ({ comments, user }) => {
@@ -10,7 +10,7 @@ export const listWrapper = ({ comments, user }) => {
 
   const unorderedListWrapper = document.querySelector('ul')
   unorderedListWrapper.innerHTML = renderComments({ comments })
-  
+
   unorderedListWrapper.addEventListener('click', (event) => {
     if (!event.target.classList.contains('comment-text')) {
       return

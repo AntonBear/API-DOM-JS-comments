@@ -1,5 +1,5 @@
 import { showTextComment, hideTextComment } from '../utils/utils.js'
-import { renderComments } from '../renderComments/renderComments.js'
+import { renderComments } from '../comment/viewComments.js'
 import { showLoader, hideLoader } from '../utils/utils.js'
 import { fetchPostCommentsAuth, fetchCommentsAuth } from '../utils/fetch.js'
 

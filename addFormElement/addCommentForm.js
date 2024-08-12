@@ -3,7 +3,6 @@ import { postComment } from './modelCommentForm.js'
 
 export const addFormElement = ({ user }) => {
   viewInitAddCommentForm(user)
-  
   const addComButton = document.getElementById('button')
   addComButton.addEventListener('click', function () {
     const text = document

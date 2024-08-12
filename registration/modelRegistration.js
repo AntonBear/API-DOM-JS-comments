@@ -1,6 +1,6 @@
 import { addFormElement } from '../addFormElement/addCommentForm.js'
 import { fetchRegUser, fetchCommentsAuth } from '../utils/fetch.js'
-import { listWrapper } from '../renderComments/listWrapper.js'
+import { listWrapper } from '../container/listWrapper.js'
 
 export async function regUser(name, login, password) {
   try {
@@ -22,7 +22,7 @@ export function getSafeLogin() {
     return loginInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
   } else {
     console.error('Элемент input-login-registration не найден!')
-    return '' 
+    return ''
   }
 }
 
@@ -32,7 +32,7 @@ export function getSafePassword() {
     return passwordInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
   } else {
     console.error('Элемент input-password-registration не найден!')
-    return '' 
+    return ''
   }
 }
 
@@ -42,6 +42,6 @@ export function getSafeName() {
     return nameInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
   } else {
     console.error('Элемент input-name -registration не найден!')
-    return '' 
+    return ''
   }
 }

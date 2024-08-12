@@ -1,5 +1,5 @@
 'use strict'
-import { listWrapper } from './renderComments/listWrapper.js'
+import { listWrapper } from './container/listWrapper.js'
 import { fetchComments } from './utils/fetch.js'
 import { showAuthorizationNotice } from './notion/notion.js'
 

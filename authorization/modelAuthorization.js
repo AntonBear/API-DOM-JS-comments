@@ -1,10 +1,10 @@
 import { addFormElement } from '../addFormElement/addCommentForm.js'
 import { fetchAuthorizationUser, fetchCommentsAuth } from '../utils/fetch.js'
-import { listWrapper } from '../renderComments/listWrapper.js'
-import { updateAllCommentsArray } from '../appendComment/comment.js'
+import { listWrapper } from '../container/listWrapper.js'
+import { updateAllCommentsArray } from '../comment/comment.js'
 import { fetchComments } from '../utils/fetch.js'
-import { findObjectsWithDifferentProperties } from '../appendComment/modelComment.js'
-import { updateCommentsInDOM } from '../appendComment/modelComment.js'
+import { findObjectsWithDifferentProperties } from '../comment/modelComment.js'
+import { updateCommentsInDOM } from '../comment/modelComment.js'
 
 export async function loginUser(login, password) {
   try {
@@ -12,12 +12,12 @@ export async function loginUser(login, password) {
       'button-authorization'
     )
     const authorization = document.getElementById('authorization')
-    const user = await fetchAuthorizationUser(login, password)
-    const comments = await fetchCommentsAuth(user)
-    const oldComments = await fetchComments()
-    updateAllCommentsArray(comments)
+    const user = await fetchAuthorizationUser(login, password) // регистрируем пользователя
+    const comments = await fetchCommentsAuth(user) // получаем комментарии пользователя
+    const prewComments = await fetchComments() // получаем комментарии без авторизации
+    updateAllCommentsArray(comments) // загружаем  новые комментарии в массив данных
     const newCommenteAfterLogin = findObjectsWithDifferentProperties(
-      oldComments,
+      prewComments,
       comments
     )
     updateCommentsInDOM(newCommenteAfterLogin)
@@ -38,7 +38,7 @@ export function getSafeLogin() {
     return loginInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
   } else {
     console.error('Элемент input-login-authorization не найден!')
-    return '' 
+    return ''
   }
 }
 
@@ -48,7 +48,7 @@ export function getSafePassword() {
     return passwordInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
   } else {
     console.error('Элемент input-password-authorization не найден!')
-    return '' 
+    return ''
   }
 }
 
@@ -58,6 +58,6 @@ export function getSafeName() {
     return nameInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
   } else {
     console.error('Элемент input-name -registration не найден!')
-    return '' 
+    return ''
   }
 }
