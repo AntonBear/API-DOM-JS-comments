@@ -2,7 +2,6 @@ import { addFormElement } from '../addFormElement/addCommentForm.js'
 import { fetchAuthorizationUser, fetchCommentsAuth } from '../fetch.js'
 import { listWrapper } from '../ListWrapper.js'
 import { updateAllCommentsArray } from '../appendComment/comment.js'
-// import { checkForNewComments } from '../appendComment/comment.js'
 import { fetchComments } from '../fetch.js'
 import { findObjectsWithDifferentProperties } from '../appendComment/modelComment.js'
 import { updateCommentsInDOM } from '../appendComment/modelComment.js'
@@ -18,13 +17,11 @@ export async function loginUser(login, password) {
     const oldComments = await fetchComments()
     console.log('старые комментарии', oldComments)
     updateAllCommentsArray(comments)
-
     const newCommenteAfterLogin = findObjectsWithDifferentProperties(
       oldComments,
       comments
     )
     updateCommentsInDOM(newCommenteAfterLogin)
-    // await checkForNewComments(comments)
 
     const commentsEl = document.querySelector('.comments')
     commentsEl.remove()
