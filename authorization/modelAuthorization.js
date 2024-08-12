@@ -1,8 +1,8 @@
 import { addFormElement } from '../addFormElement/addCommentForm.js'
-import { fetchAuthorizationUser, fetchCommentsAuth } from '../fetch.js'
-import { listWrapper } from '../ListWrapper.js'
+import { fetchAuthorizationUser, fetchCommentsAuth } from '../utils/fetch.js'
+import { listWrapper } from '../renderComments/listWrapper.js'
 import { updateAllCommentsArray } from '../appendComment/comment.js'
-import { fetchComments } from '../fetch.js'
+import { fetchComments } from '../utils/fetch.js'
 import { findObjectsWithDifferentProperties } from '../appendComment/modelComment.js'
 import { updateCommentsInDOM } from '../appendComment/modelComment.js'
 

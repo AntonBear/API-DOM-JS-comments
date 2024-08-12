@@ -1,4 +1,4 @@
-import { formatCommentDate } from './utils.js'
+import { formatCommentDate } from '../utils/utils.js'
 export const renderComments = ({ comments }) => {
   const commentsHTML = comments
     .map((comment) => {

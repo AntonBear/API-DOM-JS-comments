@@ -1,14 +1,15 @@
-import { BASE_URL } from './const.js'
+import { BASE_URL } from '../utils/const.js'
 import { renderComments } from './renderComments.js'
+import { viewWrapper } from './viewWrapper.js'
 
 export const listWrapper = ({ comments, user }) => {
-  const appElement = document.querySelector('.appElement')
-  const unorderedListWrapper = document.createElement('ul')
-  unorderedListWrapper.classList.add('comments')
-  unorderedListWrapper.id = 'comments'
-  unorderedListWrapper.innerHTML = renderComments({ comments })
-  appElement.appendChild(unorderedListWrapper)
+  if (!(Object.keys(user).length === 0)) {
+    renderComments({ comments })
+  }
 
+  viewWrapper({ comments })
+
+  const unorderedListWrapper = document.querySelector('ul')
   unorderedListWrapper.addEventListener('click', (event) => {
     if (!event.target.classList.contains('comment-text')) {
       return

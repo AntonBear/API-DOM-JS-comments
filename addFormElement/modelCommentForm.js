@@ -1,7 +1,7 @@
-import { showTextComment, hideTextComment } from '../utils.js'
-import { renderComments } from '../renderComments.js'
-import { showLoader, hideLoader } from '../utils.js'
-import { fetchPostCommentsAuth, fetchCommentsAuth } from '../fetch.js'
+import { showTextComment, hideTextComment } from '../utils/utils.js'
+import { renderComments } from '../renderComments/renderComments.js'
+import { showLoader, hideLoader } from '../utils/utils.js'
+import { fetchPostCommentsAuth, fetchCommentsAuth } from '../utils/fetch.js'
 
 export async function postComment(user, text) {
   try {
@@ -12,7 +12,7 @@ export async function postComment(user, text) {
 
     // добавить один комментарий к одновному списку
     // что у меня есть?      новые комменты
-    // мне для добавления необходимо достать измененный комментарий 
+    // мне для добавления необходимо достать измененный комментарий
 
     renderComments({ comments })
   } catch (error) {

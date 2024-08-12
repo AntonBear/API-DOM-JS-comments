@@ -1,6 +1,6 @@
 'use strict'
-import { listWrapper } from './ListWrapper.js'
-import { fetchComments } from './fetch.js'
+import { listWrapper } from './renderComments/listWrapper.js'
+import { fetchComments } from './utils/fetch.js'
 import { showAuthorizationNotice } from './notion/notion.js'
 
 async function initApp() {
@@ -15,7 +15,7 @@ async function initApp() {
     }
   } catch (error) {
     console.error('Ошибка приложения:', error)
-  } 
+  }
 }
 
 initApp()

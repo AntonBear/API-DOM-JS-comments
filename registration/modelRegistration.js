@@ -1,6 +1,6 @@
 import { addFormElement } from '../addFormElement/addCommentForm.js'
-import { fetchRegUser, fetchCommentsAuth } from '../fetch.js'
-import { listWrapper } from '../ListWrapper.js'
+import { fetchRegUser, fetchCommentsAuth } from '../utils/fetch.js'
+import { listWrapper } from '../renderComments/listWrapper.js'
 
 export async function regUser(name, login, password) {
   try {
