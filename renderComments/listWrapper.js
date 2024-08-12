@@ -6,10 +6,11 @@ export const listWrapper = ({ comments, user }) => {
   if (!(Object.keys(user).length === 0)) {
     renderComments({ comments })
   }
-
-  viewWrapper({ comments })
+  viewWrapper()
 
   const unorderedListWrapper = document.querySelector('ul')
+  unorderedListWrapper.innerHTML = renderComments({ comments })
+  
   unorderedListWrapper.addEventListener('click', (event) => {
     if (!event.target.classList.contains('comment-text')) {
       return

@@ -3,7 +3,7 @@ import { listWrapper } from './renderComments/listWrapper.js'
 import { fetchComments } from './utils/fetch.js'
 import { showAuthorizationNotice } from './notion/notion.js'
 
-async function initApp() {
+async function App() {
   try {
     const comments = await fetchComments()
     const user = {}
@@ -18,4 +18,4 @@ async function initApp() {
   }
 }
 
-initApp()
+App()

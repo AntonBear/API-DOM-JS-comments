@@ -9,11 +9,6 @@ export async function postComment(user, text) {
     showTextComment()
     await fetchPostCommentsAuth(user, text)
     const comments = await fetchCommentsAuth(user)
-
-    // добавить один комментарий к одновному списку
-    // что у меня есть?      новые комменты
-    // мне для добавления необходимо достать измененный комментарий
-
     renderComments({ comments })
   } catch (error) {
     console.error('Ошибка добавления комментария в форму:', error)

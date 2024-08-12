@@ -22,7 +22,7 @@ export function getSafeLogin() {
     return loginInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
   } else {
     console.error('Элемент input-login-registration не найден!')
-    return '' // Или бросить исключение: throw new Error(...)
+    return '' 
   }
 }
 
@@ -32,7 +32,7 @@ export function getSafePassword() {
     return passwordInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
   } else {
     console.error('Элемент input-password-registration не найден!')
-    return '' // Или бросаем исключение: throw new Error(...)
+    return '' 
   }
 }
 
@@ -42,6 +42,6 @@ export function getSafeName() {
     return nameInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
   } else {
     console.error('Элемент input-name -registration не найден!')
-    return '' // Или бросаем исключение: throw new Error(...)
+    return '' 
   }
 }
