@@ -4,6 +4,9 @@ import { listWrapper } from '../ListWrapper.js'
 
 export async function loginUser(login, password) {
   try {
+    const buttonAuthorizationEl = document.getElementById(
+      'button-authorization'
+    )
     const authorization = document.getElementById('authorization')
     const user = await fetchAuthorizationUser(login, password)
     const comments = await fetchCommentsAuth(user)
@@ -12,11 +15,29 @@ export async function loginUser(login, password) {
     listWrapper({ comments, user })
     addFormElement({ user })
     authorization.remove()
-    if (user) {
-      console.log('Авторизация прошла успешно:', user)
-    } else {
-      console.log('Не удалось авторизоваться')
-    }
     buttonAuthorizationEl.disabled = false
-  } catch (e) {}
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+export function getSafeLogin() {
+  const loginInput = document.getElementById('input-login-authorization')
+
+  if (loginInput) {
+    return loginInput.value.replaceAll('<', '&lt').replaceAll('>', '&gt')
+  } else {
+    console.error('Элемент input-login-authorization не найден!')
+    return '' // Или бросить исключение: throw new Error(...)
+  }
+}
+
+export function getSafePassword() {
+  const passwordInput = document.getElementById('input-password-authorization')
+  if (passwordInput) {
+    return passwordInput.value.replaceAll('<', '&lt;').replaceAll('>', '&gt;')
+  } else {
+    console.error('Элемент input-password-authorization не найден!')
+    return '' // Или бросаем исключение: throw new Error(...)
+  }
 }
