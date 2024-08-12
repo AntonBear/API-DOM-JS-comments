@@ -1,9 +1,12 @@
 // import { fetchCommentsAuth } from '../fetch.js'
 // import {getAllComments} from './modelComment.js'
 
-
 const commentsContainer = document.getElementById('comments') // ULLLLL
-let allComments = [] // Массив для хранения всех комментариев
+export let allComments = [] // Массив для хранения всех комментариев
+
+export function updateAllCommentsArray(newArray) {
+  allComments = newArray
+}
 
 // Функция для добавления комментариев в массив
 function addCommentsToArray(newComments) {
@@ -16,6 +19,7 @@ function updateCommentsDOM(newComments) {
     const date = new Date(dateString)
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
   }
+  console.log(newComments)
   newComments.forEach((comment) => {
     const commentElement = document.createElement('li')
     commentElement.classList.add('comments')
@@ -50,17 +54,17 @@ function updateCommentsDOM(newComments) {
 }
 
 // Функция для проверки новых комментариев
-export async function checkForNewComments({ comments }) {
+export async function checkForNewComments(comments) {
   // const comments = await fetchCommentsAuth(user) // Получаем комментарии из API
   const newCommentIds = comments.map((comment) => comment.id) // Получаем ID новых комментариев
-  console.log(comment)
+  // console.log(comments)
   const existingCommentIds = allComments.map((comment) => comment.id) // Получаем ID существующих комментариев
-
-
+  // console.log(allComments)
   // Фильтруем новые комментарии, которых еще нет в массиве
   const trulyNewComments = newCommentIds.filter(
     (comment) => !existingCommentIds.includes(comment.id)
   )
+  console.log(trulyNewComments)
 
   if (trulyNewComments.length > 0) {
     addCommentsToArray(trulyNewComments) // Добавляем новые комментарии в массив

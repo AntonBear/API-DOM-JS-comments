@@ -14,7 +14,10 @@ export const authorization = () => {
     const login = getSafeLogin()
     const password = getSafePassword()
     loginUser(login, password)
+    
   })
+
+
   const signupSpan = document.getElementById('registration-span')
   signupSpan.addEventListener('click', function () {
     const authorization = document.getElementById('authorization')

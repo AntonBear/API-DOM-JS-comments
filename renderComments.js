@@ -12,7 +12,7 @@ export const renderComments = ({ comments }) => {
         .toString()
         .padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`
 
-      return `<li class="comment" data-idex="${comment.id}">
+      return `<li class="comment" data-comment-idex="${comment.id}">
             <div class="comment-header">
               <div data-comment-header-index='${comment.id}'>${
         comment.author.name
