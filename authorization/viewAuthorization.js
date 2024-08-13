@@ -1,7 +1,7 @@
 export const viewAuthorization = () => {
-  const appElement = document.querySelector('.appElement')
-  const authorization = document.createElement('div')
-  authorization.id = 'authorization'
+  const appElement = document.querySelector(".appElement");
+  const authorization = document.createElement("div");
+  authorization.id = "authorization";
   authorization.innerHTML = `<div class="add-form-authorization" >
     <p class="authorization-text">Форма входа</p>
     <input
@@ -23,6 +23,6 @@ export const viewAuthorization = () => {
     </div>
     <p id='registration-span' class="authorization-text authorization-text_center">Зарегистрироваться</p>
   </div>
-  `
-  appElement.appendChild(authorization)
-}
+  `;
+  appElement.appendChild(authorization);
+};

@@ -12,10 +12,10 @@ export async function fetchAuthorizationUser(login, password) {
     const user = await response.json()
     return user.user
   } catch (error) {
-    if (response.status === 400) {
+    if (error.status === 400) {
       throw Error('Неверный логин или пароль')
     } else {
-      throw Error(`Ошибка сервера: ${response.status}`)
+      throw Error(`Ошибка сервера: ${error.status}`)
     }
   }
 }
@@ -33,6 +33,7 @@ export async function fetchRegUser(name, login, password) {
     const regUser = await response.json()
     return regUser.user
   } catch (error) {
+    console.error(error)
     throw error
   }
 }

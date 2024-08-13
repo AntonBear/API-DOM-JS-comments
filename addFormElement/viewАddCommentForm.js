@@ -1,6 +1,6 @@
 export const viewInitAddCommentForm = (user) => {
-  const appElement = document.querySelector('.appElement')
-  const newFormHTML = document.createElement('div')
+  const appElement = document.querySelector(".appElement");
+  const newFormHTML = document.createElement("div");
   newFormHTML.innerHTML = `<div class="add-form" >
       <input
         id="input"
@@ -19,6 +19,6 @@ export const viewInitAddCommentForm = (user) => {
         <button id="button" class="add-form-button">Написать</button>
       </div>
     </div>
-    `
-  appElement.appendChild(newFormHTML)
-}
+    `;
+  appElement.appendChild(newFormHTML);
+};

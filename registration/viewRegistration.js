@@ -3,7 +3,7 @@ export const viewRegistration = () => {
   const registration = document.createElement('div')
   registration.id = 'registration'
 
-  registration.innerHTML = `<div class="add-form-registration" >
+  registration.innerHTML = `<div id='registration' class="add-form-registration" >
       <p class="registration-text">Форма регистрации</p>
       <div>Имя</div>
       <input

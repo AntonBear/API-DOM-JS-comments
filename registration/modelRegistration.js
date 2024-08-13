@@ -4,6 +4,7 @@ import { listWrapper } from '../container/listWrapper.js'
 
 export async function regUser(name, login, password) {
   try {
+    const registration = document.querySelector('.add-form-registration')
     const commentsEl = document.querySelector('.comments')
     const user = await fetchRegUser(name, login, password)
     const comments = await fetchCommentsAuth(user)

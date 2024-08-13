@@ -1,10 +1,14 @@
 import { authorization } from '../authorization/authorization.js'
 import { viewRegistration } from './viewRegistration.js'
-import { getSafeName, getSafeLogin, getSafePassword, regUser } from './modelRegistration.js'
+import {
+  getSafeName,
+  getSafeLogin,
+  getSafePassword,
+  regUser,
+} from './modelRegistration.js'
 
 export const registration = () => {
   viewRegistration()
-
   const buttonRegistrationEl = document.getElementById('button-registration')
   buttonRegistrationEl.addEventListener('click', function () {
     const name = getSafeName()
@@ -15,6 +19,7 @@ export const registration = () => {
 
   const InitAuthorizationSpan = document.getElementById('authorization-span')
   InitAuthorizationSpan.addEventListener('click', function () {
+    const registration = document.getElementById('registration')
     registration.remove()
     authorization()
   })
