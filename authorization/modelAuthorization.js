@@ -1,7 +1,6 @@
 import { addFormElement } from "../addFormElement/addCommentForm.js";
 import { fetchAuthorizationUser, fetchCommentsAuth } from "../utils/fetch.js";
 import { listWrapper } from "../container/listWrapper.js";
-import { updateAllCommentsArray } from "../comment/comment.js";
 import { fetchComments } from "../utils/fetch.js";
 import { findObjectsWithDifferentProperties } from "../comment/modelComment.js";
 import { updateCommentsInDOM } from "../comment/modelComment.js";
@@ -15,7 +14,6 @@ export async function loginUser(login, password) {
     const user = await fetchAuthorizationUser(login, password); // регистрируем пользователя
     const comments = await fetchCommentsAuth(user); // получаем комментарии пользователя
     const prewComments = await fetchComments(); // получаем комментарии без авторизации
-    updateAllCommentsArray(comments); // загружаем  новые комментарии в массив данных
     const newCommenteAfterLogin = findObjectsWithDifferentProperties(
       prewComments,
       comments,
