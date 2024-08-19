@@ -18,7 +18,7 @@
 
 1. Клонируйте репозиторий:
 
-   git clone https://github.com/ваш_репозиторий.git
+   git clone https://github.com/AntonBear/javascript-dom-api-board-of-comments.git
 
 2. Перейдите в директорию проекта:
 
@@ -39,17 +39,4 @@
 - GET /api/comments: Получить список всех комментариев.
 - POST /api/comments: Добавить новый комментарий.
 - DELETE /api/comments/:id: Удалить комментарий по ID.
-
-### Примеры запросов
-
-- Получение комментариев:
-
-  curl -X GET http://localhost:3000/api/comments
-
-- Добавление комментария:
-
-  curl -X POST -H "Content-Type: application/json" -d '{"author":"Имя","text":"Ваш комментарий"}' http://localhost:3000/api/comments
-
-- Удаление комментария:
-
-  curl -X DELETE http://localhost:3000/api/comments/ID_КОММЕНТАРИЯ
+- Like /api/comments/:id/toggle-like поставить лайк по ID.
